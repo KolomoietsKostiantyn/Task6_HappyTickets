@@ -1,0 +1,7 @@
+C:\Users\User\Documents\Visual Studio 2017\Projects\Task6_HappyTickets\Task6_HappyTickets\obj\Debug\Task6_HappyTickets.csprojAssemblyReference.cache
+C:\Users\User\Documents\Visual Studio 2017\Projects\Task6_HappyTickets\Task6_HappyTickets\obj\Debug\Task6_HappyTickets.csproj.CoreCompileInputs.cache
+C:\Users\User\Documents\Visual Studio 2017\Projects\Task6_HappyTickets\Task6_HappyTickets\bin\Debug\Task6_HappyTickets.exe.config
+C:\Users\User\Documents\Visual Studio 2017\Projects\Task6_HappyTickets\Task6_HappyTickets\bin\Debug\Task6_HappyTickets.exe
+C:\Users\User\Documents\Visual Studio 2017\Projects\Task6_HappyTickets\Task6_HappyTickets\bin\Debug\Task6_HappyTickets.pdb
+C:\Users\User\Documents\Visual Studio 2017\Projects\Task6_HappyTickets\Task6_HappyTickets\obj\Debug\Task6_HappyTickets.exe
+C:\Users\User\Documents\Visual Studio 2017\Projects\Task6_HappyTickets\Task6_HappyTickets\obj\Debug\Task6_HappyTickets.pdb
