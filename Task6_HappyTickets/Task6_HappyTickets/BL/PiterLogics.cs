@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Task6_HappyTickets.Intermidiate;
+using Task6_HappyTickets.Intermediate;
 
 namespace Task6_HappyTickets.BL
 {
-    class PiterLogics : ILogics
+    class PiterLogics: ILogics
     {
         private readonly int _dozen = 10;
         private readonly int _minAvalible = 10;
@@ -25,22 +25,16 @@ namespace Task6_HappyTickets.BL
         }
 
 
-        public int Calculate(int num)
+        public int CalculateCountOccurrences(int num)
         {
+            if (num > MaxValue || num <= 0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
             if (num < _minAvalible)
             {
                 return 0;
             }
-            if (num > MaxValue)
-            {
-                throw new ArgumentOutOfRangeException();
-            }
-
-            return CalcCountOccurrences(num);
-        }
-
-        private int CalcCountOccurrences(int num)
-        {
             int result = 0;
             int num1;
             int num2;
@@ -56,7 +50,7 @@ namespace Task6_HappyTickets.BL
             return result;
         }
 
-        private bool CheckLuck(int num1, int num2)
+        public bool CheckLuck(int num1, int num2)
         {
             bool result = false;
             if (num1 == num2)
@@ -67,7 +61,7 @@ namespace Task6_HappyTickets.BL
             return result;
         }
 
-        private void DivideNumberInTwoSum(int num, out int sum1, out int sum2)
+        public void DivideNumberInTwoSum(int num, out int sum1, out int sum2)
         {
             int i = 1;
             sum1 = 0;
@@ -90,7 +84,7 @@ namespace Task6_HappyTickets.BL
             } while (num != 0);
         }
 
-        private int NumberDigit(int num)
+        public int NumberDigit(int num)
         {
             if (num == 0)
             {
@@ -101,9 +95,12 @@ namespace Task6_HappyTickets.BL
             {
                 i++;
                 num = num / _dozen;
-            } while (num !=0);
+            } while (num != 0);
 
-            return i -1;
+            return i - 1;
         }
+
+
+
     }
 }

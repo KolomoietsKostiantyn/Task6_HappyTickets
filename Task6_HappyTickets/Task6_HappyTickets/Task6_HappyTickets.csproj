@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{96846497-014C-4CFF-BE95-3C6B37965B87}</ProjectGuid>
+    <ProjectGuid>{52691064-2819-48BD-ADA3-F691498C0775}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>Task6_HappyTickets</RootNamespace>
     <AssemblyName>Task6_HappyTickets</AssemblyName>
@@ -44,14 +44,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BL\Controler.cs" />
-    <Compile Include="BL\FileRederDeside.cs" />
-    <Compile Include="BL\ILogics.cs" />
-    <Compile Include="BL\IScriptDecide.cs" />
+    <Compile Include="BL\FileSystemReader.cs" />
+    <Compile Include="BL\InnerDataParser.cs" />
+    <Compile Include="BL\Interfases\ILogics.cs" />
+    <Compile Include="BL\Interfases\IInnerDataParser.cs" />
+    <Compile Include="BL\Interfases\IScriptProvider.cs" />
+    <Compile Include="BL\Interfases\IScriptSelecter.cs" />
     <Compile Include="BL\MoskowLogics.cs" />
     <Compile Include="BL\PiterLogics.cs" />
-    <Compile Include="Intermidiate\ScryptType.cs" />
-    <Compile Include="Intermidiate\IVisulizer.cs" />
-    <Compile Include="Intermidiate\Messages.cs" />
+    <Compile Include="BL\ScriptSelecter.cs" />
+    <Compile Include="Intermediate\Messages.cs" />
+    <Compile Include="Intermediate\ScryptType.cs" />
+    <Compile Include="Intermediate\IVisulizer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\ConsoleUI.cs" />

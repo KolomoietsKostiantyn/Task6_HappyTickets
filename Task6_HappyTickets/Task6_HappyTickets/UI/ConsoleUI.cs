@@ -3,32 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Task6_HappyTickets.Intermidiate;
+using Task6_HappyTickets.Intermediate;
 
 namespace Task6_HappyTickets.UI
 {
-    class ConsoleUI : IVisulizer
+    
+
+    class ConsoleUI : IVisualizer
     {
-        private string instruction = "alternately enter the path to the file where the algorithm" +
-                " is specified, and then the number and get the number of happy" +
-                "tickets for the specified method of counting";
+        string instruction = "Enter the path to the document where the type of the algorithm and " +
+                "the ticket number are indicated(when the program is started)";
 
-        public string AskNunber()
+        public void SendAnswer(ScryptType type, int Occurrences, int number)
         {
-            Console.WriteLine("Enter a number in the range of 1 - 999999");
-            return Console.ReadLine();
-        }
-
-        public string AskPath()
-        {
-            Console.WriteLine("Enter the path to the file with the algorithm");
-            return Console.ReadLine();
-        }
-
-        public void SendAnswer(ScryptType type, int count)
-        {
-            string result = "For the algorithm {0} exists {1} happy tickets.";
-            Console.WriteLine(string.Format(result, type, count));
+            Console.WriteLine(string.Format("Before {0} exist {1} happy tickets by {2} script", number, Occurrences, type));
             Console.ReadKey();
         }
 
@@ -40,14 +28,18 @@ namespace Task6_HappyTickets.UI
                     Console.WriteLine(instruction);
                     break;
                 case Messages.WrongPath:
-                    Console.WriteLine("Such file does not exist or the name of the algorithm is not specified.");
+                    Console.WriteLine("This file does not exist or cannot be opened");
                     break;
-                case Messages.IncorectNumber:
-                    Console.WriteLine("Cannot convert this to a number between 1 and 999999");
+                case Messages.IncorectContext:
+                    Console.WriteLine("File content does not match '<script name> <ticket>'");
+                    break;
+                case Messages.IncorectScript:
+                    Console.WriteLine("The script with the same name does not exist.");
                     break;
                 default:
                     break;
             }
+            Console.ReadKey();
         }
     }
 }

@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Task6_HappyTickets.Intermidiate
+namespace Task6_HappyTickets.BL
 {
-    enum ScryptType
+    interface IScriptSelecter
     {
-        Error,
-        Moskow,
-        Piter
+        ILogics MakeChoiсe(string scriptName);
     }
 }

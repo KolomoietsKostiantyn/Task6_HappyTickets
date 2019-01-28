@@ -1,141 +1,70 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Task6_HappyTickets.Intermidiate;
+using Task6_HappyTickets.Intermediate;
 
 namespace Task6_HappyTickets.BL
 {
     class Controler
     {
-        private readonly int MaxNum = 999999;
-        private IVisulizer _visulizer;
-        private string [] _arr;
-        IScriptDecide _scriptDecide;
+        IInnerDataParser _innerDataParser;
         ILogics _logics;
-        private string _path;
-        private int _count;
+        IScriptSelecter _scriptSelecter;
+        IScriptReader _scriptReader;
+        string[] _arr;
+        IVisualizer _visulizer;
 
-
-
-        public Controler(IVisulizer visulizer, string[] arr)
+        public Controler(IVisualizer visulizer, IInnerDataParser innerDataParser, IScriptSelecter scriptSelecter, IScriptReader scriptReader, string [] arr)
         {
             _visulizer = visulizer;
+            _innerDataParser = innerDataParser;
+            _scriptSelecter = scriptSelecter;
+            _scriptReader = scriptReader;
             _arr = arr;
-            _scriptDecide = new FileRederDeside();
         }
 
         public void Start()
         {
-            if (ValidateInnerArr(_arr))
+            string readResult;
+            if (_innerDataParser.ValidArray(_arr))
             {
-                ScryptType alg = AlgoritmSelector(_path);
-                if (AlgorithmCreator(alg))
+                readResult = _scriptReader.Read(_arr[0]);
+            }
+            else
+            {
+                _visulizer.SendMasage(Messages.Instruction);
+                return;
+            }
+          
+            if (readResult != null)
+            {
+                string scriptName;
+                int number;
+                if (_innerDataParser.StringToParams(readResult, out scriptName, out number))
                 {
-                    int result = _logics.Calculate(_count);
-                    _visulizer.SendAnswer(_logics.Type, result);
+                    _logics = _scriptSelecter.MakeChoiсe(scriptName);
+                    if (_logics != null)
+                    {
+                        int quantity = _logics.CalculateCountOccurrences(number);
+                        _visulizer.SendAnswer(_logics.Type, quantity, number);
+                    }
+                    else
+                    {
+                        _visulizer.SendMasage(Messages.IncorectScript);
+                    }
+
+                }
+                else
+                {
+                    _visulizer.SendMasage(Messages.IncorectContext);
                 }
             }
             else
             {
-                ScryptType alg;
-                do
-                {
-                    _path =  _visulizer.AskPath();
-                    alg = AlgoritmSelector(_path);
-                    AlgorithmCreator(alg);
-                } while (!AlgorithmCreator(alg));
-                string strNum;
-                do
-                {
-                    strNum = _visulizer.AskNunber();
-                } while (!StringToNum(strNum,out _count));
-                int result = _logics.Calculate(_count);
-                _visulizer.SendAnswer(_logics.Type, result);
+                _visulizer.SendMasage(Messages.WrongPath);
             }
         }
-
-
-
-
-        private bool StringToNum(string str, out int num)
-        {
-            bool result = false;
-            if (int.TryParse(str,out num))
-            {
-                if (num > 0 && num <= MaxNum)
-                {
-                    result = true;
-                }
-            }
-            if (!result)
-            {
-                _visulizer.SendMasage(Messages.IncorectNumber);
-            }
-
-            return result;
-        }
-
-        private bool AlgorithmCreator(ScryptType algorithm)
-        {
-            bool result = false;
-            switch (algorithm)
-            {
-                case ScryptType.Error:
-                    _visulizer.SendMasage(Messages.WrongPath);
-                    break;
-                case ScryptType.Moskow:
-                    _logics = new MoskowLogics();
-                    result = true;
-                    break;
-                case ScryptType.Piter:
-                    _logics = new PiterLogics();
-                    result = true;
-                    break;
-                default:
-                    break;
-            }
-
-            return result;
-        }
-
-
-        private ScryptType AlgoritmSelector(string path)
-        {
-            ScryptType type = ScryptType.Error;
-            try
-            {
-                type = _scriptDecide.MakeChoise(path);
-            }
-            catch (FileNotFoundException)
-            {
-                //добавить логирование
-            }
-            return type;
-        }
-
-        private bool ValidateInnerArr(string[] arr)
-        {
-            if (arr == null || arr.Length != 2)
-            {
-                _visulizer.SendMasage(Messages.Instruction);
-                return false;
-            }
-
-            bool result = true;
-            _path = arr[0];
-            if (!int.TryParse(arr[1],out _count))
-            {
-                _visulizer.SendMasage(Messages.Instruction);
-                result = false;
-            }
-
-            return result;
-        }
-
-        
-
     }
 }

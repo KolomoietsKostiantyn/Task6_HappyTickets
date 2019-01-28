@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Task6_HappyTickets.Intermidiate
+namespace Task6_HappyTickets.BL
 {
-    enum Messages
+    interface IScriptReader
     {
-        Instruction,
-        WrongPath,
-        IncorectNumber
+        string Read(string path);
     }
 }

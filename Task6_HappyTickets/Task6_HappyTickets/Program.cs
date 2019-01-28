@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Task6_HappyTickets.BL;
-using Task6_HappyTickets.Intermidiate;
+using Task6_HappyTickets.Intermediate;
 using Task6_HappyTickets.UI;
 
 namespace Task6_HappyTickets
@@ -13,9 +13,17 @@ namespace Task6_HappyTickets
     {
         static void Main(string[] args)
         {
-            IVisulizer visulizer = new ConsoleUI();
-            Controler cntrl = new Controler(visulizer, args);
-            cntrl.Start();
+
+            IVisualizer visualizer = new ConsoleUI();
+            IInnerDataParser innerDataParser = new InnerDataParser();
+            IScriptSelecter scriptSelecter = new ScriptSelecter();
+            IScriptReader serviceProvider = new FileSystemReader();
+
+            Controler controler = new Controler(visualizer, innerDataParser, scriptSelecter, serviceProvider, args);
+            controler.Start();
+
+
+
         }
     }
 }

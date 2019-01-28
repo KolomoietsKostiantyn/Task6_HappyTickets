@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Task6_HappyTickets.Intermidiate;
+using Task6_HappyTickets.Intermediate;
 
 namespace Task6_HappyTickets.BL
 {
-    class MoskowLogics : ILogics
+    class MoskowLogics: ILogics
     {
         private readonly int _dozen = 10;
         private readonly int _thousand = 1000;
-        private readonly int MaxValue = 999999;
+        private readonly int _maxValue = 999999;
 
         public MoskowLogics()
         {
@@ -23,22 +23,18 @@ namespace Task6_HappyTickets.BL
             private set;
         }
 
-        public int Calculate(int num)
+
+        public int CalculateCountOccurrences(int num)
         {
+            if (num > _maxValue || num <= num)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
             if (num <= 999)
             {
                 return 0;
             }
-            if (num > MaxValue) 
-            {
-                throw new ArgumentOutOfRangeException();
-            }
 
-            return CalcCountOccurrences(num);
-        }
-
-        private int CalcCountOccurrences(int num)
-        {
             int result = 0;
             for (int i = _thousand; i < num; i++)
             {
@@ -54,7 +50,7 @@ namespace Task6_HappyTickets.BL
             return result;
         }
 
-        private bool CheckLuck(int num1, int num2)
+        public bool CheckLuck(int num1, int num2)
         {
             bool result = false;
             num1 = SumNumInNumber(num1);
@@ -67,15 +63,21 @@ namespace Task6_HappyTickets.BL
             return result;
         }
 
-
-        private void DivideNumberInHalf(int num,out int part1, out int part2)
+        private bool DivideNumberInHalf(int num, out int part1, out int part2)
         {
-            part1 = (num - (num - (num / _thousand) * _thousand))/ _thousand;
+            int minValue = 999;
+            part1 = 0;
+            part2 = 0;
+            if (num < minValue || num > _maxValue)
+            {
+                return false;
+            }
+            part1 = (num - (num - (num / _thousand) * _thousand)) / _thousand;
             part2 = num - part1 * _thousand;
+            return true;
         }
 
-
-        private int SumNumInNumber(int num)
+        public int SumNumInNumber(int num)
         {
             int result = 0;
             while (num != 0)
